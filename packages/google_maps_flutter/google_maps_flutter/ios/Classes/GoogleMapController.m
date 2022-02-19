@@ -534,6 +534,10 @@ static double ToDouble(NSNumber *data) { return [FLTGoogleMapJsonConversions toD
   }
 }
 
+- (void)mapView:(GMSMapView*)mapView didTapPOIWithPlaceID:(NSString *)placeID name:(NSString *)name location:(CLLocationCoordinate2D)location {
+  [_channel invokeMethod:@"map#onPoiClick" arguments:@{@"position" : LocationToJson(coordinate), @"name" : name, @"placeId" : placeID, }];
+}
+
 - (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {
   [_channel invokeMethod:@"map#onTap" arguments:@{@"position" : LocationToJson(coordinate)}];
 }
